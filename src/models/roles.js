@@ -1,4 +1,4 @@
-import {addRole, queryPermissions, queryRoles, updateRole, queryCurrentRoles} from '../services/api';
+import {addRole, queryCurrentRoles, queryPermissions, queryRoles, updateRole} from '../services/api';
 
 export default {
 

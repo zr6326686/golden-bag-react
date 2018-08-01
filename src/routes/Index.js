@@ -50,7 +50,7 @@ export default class Index extends React.PureComponent {
             <Route component={require('../components/Exception/Page404').default}/>
 
           </Switch>
-          <GlobalFooter />
+          <GlobalFooter/>
         </main>
       </div>
     );

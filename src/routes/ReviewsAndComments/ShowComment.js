@@ -66,7 +66,8 @@ export default class ShowReview extends React.PureComponent {
           totalSelfScore={this.props.currentAssessment.totalSelfScore}
           totalManagerScore={this.props.currentAssessment.totalManagerScore}
         />
-        <Button loading={this.props.loadiong} className={ReviewsAndCommentsStyles.submit_btn} size="large" type="primary"
+        <Button loading={this.props.loadiong} className={ReviewsAndCommentsStyles.submit_btn} size="large"
+                type="primary"
                 onClick={this.submit.bind(this)}>提交审核结果</Button>
       </div>
     );

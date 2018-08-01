@@ -40,7 +40,7 @@ export default class Add extends React.PureComponent {
           currentPermissions={this.props.currentRole.meta && this.props.currentRole.meta.permissions}
           onSubmit={this.onSubmit.bind(this)}
           title="编辑"
-        l/>
+          l/>
       </div>
     );
   }

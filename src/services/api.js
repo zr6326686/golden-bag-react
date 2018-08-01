@@ -122,6 +122,7 @@ export async function queryRoles() {
 export async function queryCurrentRoles(id) {
   return request(`/roles/${id}`);
 }
+
 export async function queryPermissions() {
   return request('/permissions');
 }

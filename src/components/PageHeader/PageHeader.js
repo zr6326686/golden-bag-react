@@ -18,7 +18,7 @@ export default class PageHeader extends React.PureComponent {
           <Button onClick={this.props.onClick} className={PageHeaderStyles.button} type="primary" size="large" ghost>
             <Icon type="left"/>返回
           </Button>
-          : this.props.onClick  &&
+          : this.props.onClick &&
           <Button onClick={this.props.onClick} className={PageHeaderStyles.button} type="primary" icon="plus"
                   size="large">新建</Button>
         }

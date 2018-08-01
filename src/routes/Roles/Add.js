@@ -11,7 +11,7 @@ export default class Add extends React.PureComponent {
     console.log(values);
     const hide = message.loading('创建角色中...', 0);
     values.permissions = values.permissions
-          .map(item => ({id: item}));
+      .map(item => ({id: item}));
     this.props.dispatch({
       type: 'roles/addRole',
       role: values,
