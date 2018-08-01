@@ -1,6 +1,8 @@
 import React from 'react';
 import UserForm from './UserForm';
 import {connect} from 'dva';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import {message} from 'antd';
 
 @connect(({users, loading}) => ({
   currentUser: users.current,
@@ -16,9 +18,24 @@ export default class Update extends React.PureComponent {
     });
   }
 
+  onSubmit(values) {
+    const hide = message.loading('更新中..', 0);
+    // 更新
+    this.props.dispatch({
+      type: 'users/updateUser',
+      user: values,
+      id: this.props.match.params.id,
+    }).then(() => {
+      hide();
+    });
+  }
+
   render() {
     return (
-      <div><UserForm currentUser={this.props.currentUser}/></div>
+      <div>
+        <PageHeader title="更新用户" isBack/>
+        <UserForm title="更新" onSubmit={this.onSubmit.bind(this)} currentUser={this.props.currentUser}/>
+      </div>
     );
   }
 }

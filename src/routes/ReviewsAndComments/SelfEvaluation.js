@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'dva';
 import {Button, message, Modal} from 'antd';
 import PageHeader from '../../components/PageHeader/PageHeader';
-import ReviewsAndComments from './ReviewsAndComments.css';
+import ReviewsAndCommentsStyles from './ReviewsAndComments.css';
 import TemplateTable from '../Templates/TemplateTable';
 
 @connect(({templates, users}) => ({
@@ -75,7 +75,7 @@ export default class SelfEvaluation extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <div className={ReviewsAndCommentsStyles.wrapper}>
         <PageHeader title="自评" noBtn/>
         <TemplateTable
           isSelf
@@ -85,7 +85,7 @@ export default class SelfEvaluation extends React.PureComponent {
           onSelfSummary={this.onSelfSummary.bind(this)}
         />
         <Button
-          className={ReviewsAndComments.submit_btn}
+          className={ReviewsAndCommentsStyles.submit_btn}
           size="large"
           type="primary"
           onClick={this.submit.bind(this)}>提交自评</Button>

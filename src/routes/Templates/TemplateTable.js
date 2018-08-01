@@ -23,11 +23,25 @@ export default class TemplateTable extends React.Component {
     quarter: PropTypes.object,
     assessmentInputContents: PropTypes.array,
     assessmentProjectScores: PropTypes.array,
+    directManagerEvaluation: PropTypes.string, //直接经理评价
+    indirectManagerAuditComments: PropTypes.string, //间接经理审核意见
+    totalSelfScore: PropTypes.number,
+    totalManagerScore: PropTypes.number,
   };
   static defaultProps = {
     basicInfo: {},
     currentTemplate: {},
+    assessmentProjectScores: [],
+    assessmentInputContents: [],
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalSelfScore: 0,
+      totalManagerScore: 0,
+    };
+  }
 
   findProjectScoreById(projectId) {
     return this.props.assessmentProjectScores.find(item => item.assessmentProject.id === projectId) || {};
@@ -35,6 +49,26 @@ export default class TemplateTable extends React.Component {
 
   findInputContentById(inputId) {
     return this.props.assessmentInputContents.find(item => item.assessmentInput.id === inputId) || {};
+  }
+
+  onSelfScore(id, v) {
+    const selfScoreInput = document.querySelectorAll('td[data-type=self_score] > input');
+    let score = 0;
+    for (const input of selfScoreInput) {
+      score += Number(input.value);
+    }
+    this.setState({totalSelfScore: score});
+    this.props.onSelfScore(id, v);
+  }
+
+  onReviewScore(id, v) {
+    const selfScoreInput = document.querySelectorAll('td[data-type=review_score] > input');
+    let score = 0;
+    for (const input of selfScoreInput) {
+      score += Number(input.value);
+    }
+    this.setState({totalManagerScore: score});
+    this.props.onReviewScore(id, v);
   }
 
   render() {
@@ -107,18 +141,18 @@ export default class TemplateTable extends React.Component {
               value={project.items[0].score}/>
           </td>
           {/* 第一行自评得分 */}
-          <td rowSpan={project.items.length}>
+          <td data-type="self_score" rowSpan={project.items.length}>
             <InputCell
-              onBlur={v => this.props.onSelfScore(project.id, v)}
+              onBlur={v => this.onSelfScore(project.id, v)}
               disabled={this.props.isEditTemplate || !this.props.isSelf}
               value={this.findProjectScoreById(project.id).selfScore}
             />
           </td>
           {/* 第一行直接经理评分 */}
-          <td rowSpan={project.items.length}>
+          <td data-type="review_score" rowSpan={project.items.length}>
             <InputCell
               disabled={this.props.isEditTemplate || !this.props.isDirect}
-              onBlur={v => this.props.onReviewScore(project.id, v)}
+              onBlur={v => this.onReviewScore(project.id, v)}
               value={this.findProjectScoreById(project.id).managerScore}
             />
           </td>
@@ -217,18 +251,14 @@ export default class TemplateTable extends React.Component {
           {projectTrs}
           <tr>
             <td colSpan="6">合记</td>
+            <td></td>
             <td>
-              <InputCell/>
+              {this.props.totalSelfScore || this.state.totalSelfScore}
             </td>
             <td>
-              <InputCell/>
+              {this.props.totalManagerScore || this.state.totalManagerScore}
             </td>
-            <td>
-              <InputCell/>
-            </td>
-            <td>
-              <InputCell/>
-            </td>
+            <td></td>
           </tr>
           <tr>
             <td colSpan="10"><InputCell disabled value="工作总结、改进和工作目标计划"/></td>
@@ -242,6 +272,7 @@ export default class TemplateTable extends React.Component {
               <InputCell
                 onBlur={v => this.props.onReviewEvaluate(v)}
                 disabled={this.props.isEditTemplate || !this.props.isDirect}
+                value={this.props.directManagerEvaluation}
                 type="textarea"
               />
             </td>
@@ -251,6 +282,7 @@ export default class TemplateTable extends React.Component {
             <td colSpan="6">
               <InputCell
                 onBlur={v => this.props.onAuditOpinion(v)}
+                value={this.props.indirectManagerAuditComments}
                 disabled={this.props.isEditTemplate || !this.props.isIndirect}
               />
             </td>

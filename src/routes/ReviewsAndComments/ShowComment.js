@@ -3,11 +3,11 @@ import TemplateTable from '../Templates/TemplateTable';
 import {connect} from 'dva';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import {Button, message, Modal} from 'antd';
-import ReviewsAndComments from './ReviewsAndComments.css';
+import ReviewsAndCommentsStyles from './ReviewsAndComments.css';
 
-@connect(({templates, loading}) => ({
+@connect(({reviewsAndComments, loading}) => ({
   loading: loading.models.reviewsAndComments,
-  currentTemplate: templates.current,
+  currentAssessment: reviewsAndComments.currentAssessment,
 }))
 export default class ShowReview extends React.PureComponent {
 
@@ -20,7 +20,7 @@ export default class ShowReview extends React.PureComponent {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'templates/fetchCurrent',
+      type: 'reviewsAndComments/fetchCurrentAssessment',
       id: this.props.match.params.id,
     });
   }
@@ -54,10 +54,19 @@ export default class ShowReview extends React.PureComponent {
         <PageHeader title="直接经理审核" noBtn/>
         <TemplateTable
           isIndirect
-          currentTemplate={this.props.currentTemplate}
           onAuditOpinion={this.onAuditOpinion.bind(this)}
+
+          quarter={this.props.currentAssessment.quarter}
+          basicInfo={this.props.currentAssessment.user}
+          currentTemplate={this.props.currentAssessment.assessmentTemplate}
+          assessmentInputContents={this.props.currentAssessment.assessmentInputContents}
+          assessmentProjectScores={this.props.currentAssessment.assessmentProjectScores}
+          directManagerEvaluation={this.props.currentAssessment.directManagerEvaluation}
+          indirectManagerAuditComments={this.props.currentAssessment.indirectManagerAuditComments}
+          totalSelfScore={this.props.currentAssessment.totalSelfScore}
+          totalManagerScore={this.props.currentAssessment.totalManagerScore}
         />
-        <Button loading={this.props.loadiong} className={ReviewsAndComments.submit_btn} size="large" type="primary"
+        <Button loading={this.props.loadiong} className={ReviewsAndCommentsStyles.submit_btn} size="large" type="primary"
                 onClick={this.submit.bind(this)}>提交审核结果</Button>
       </div>
     );

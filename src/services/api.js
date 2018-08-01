@@ -115,3 +115,27 @@ export async function queryAssessments(id) {
   return request(`/assessments/${id}`);
 }
 
+export async function queryRoles() {
+  return request('/roles');
+}
+
+export async function queryCurrentRoles(id) {
+  return request(`/roles/${id}`);
+}
+export async function queryPermissions() {
+  return request('/permissions');
+}
+
+export async function addRole(role) {
+  return request('/roles', {
+    method: 'POST',
+    body: JSON.stringify(role),
+  });
+}
+
+export async function updateRole(id, role) {
+  return request(`/roles/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(role),
+  });
+}

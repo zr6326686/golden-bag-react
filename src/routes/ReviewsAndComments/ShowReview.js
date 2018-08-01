@@ -3,7 +3,7 @@ import TemplateTable from '../Templates/TemplateTable';
 import {connect} from 'dva';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import {Button, message, Modal} from 'antd';
-import ReviewsAndComments from './ReviewsAndComments.css';
+import ReviewsAndCommentsStyles from './ReviewsAndComments.css';
 
 @connect(({reviewsAndComments, loading}) => ({
   loading: loading.models.reviewsAndComments,
@@ -92,10 +92,13 @@ export default class ShowReview extends React.PureComponent {
           onReviewScore={this.onReviewScore.bind(this)}
           onReviewRemark={this.onReviewRemark.bind(this)}
           onReviewEvaluate={this.onReviewEvaluate.bind(this)}
+
+          totalSelfScore={this.props.currentAssessment.totalSelfScore}
+          directManagerEvaluation={this.props.currentAssessment.directManagerEvaluation}
           assessmentInputContents={this.props.currentAssessment.assessmentInputContents}
           assessmentProjectScores={this.props.currentAssessment.assessmentProjectScores}
         />
-        <Button loading={this.props.loading} className={ReviewsAndComments.submit_btn} size="large" type="primary"
+        <Button loading={this.props.loading} className={ReviewsAndCommentsStyles.submit_btn} size="large" type="primary"
                 onClick={this.submit.bind(this)}>提交评分结果</Button>
       </div>
     );

@@ -15,6 +15,8 @@ app.model(require('./models/departments').default);
 app.model(require('./models/quarters').default);
 app.model(require('./models/templates').default);
 app.model(require('./models/reviewsAndComments').default);
+app.model(require('./models/roles').default);
+
 
 // 4. Router
 app.router(require('./router').default);

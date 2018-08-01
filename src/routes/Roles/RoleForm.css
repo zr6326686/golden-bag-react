@@ -1,0 +1,25 @@
+.role_form {
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.permission_item_title{
+  font-size: 14px;
+  margin: 0;
+  color: #666;
+  font-weight: normal;
+  line-height: 25px;
+}
+.divider{
+  margin: 10px 0;
+}
+.permission_title{
+  margin-top: 50px;
+  margin-bottom: 30px;
+  margin-left: -70px;
+}
+.permission_item{
+  margin-top: 20px;
+  margin-left: 20px;
+}

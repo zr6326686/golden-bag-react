@@ -4,6 +4,7 @@ import IndexStyles from './Index.css';
 import {Menu} from 'antd';
 import {Route, Switch} from 'dva/router';
 import {connect} from 'dva';
+import GlobalFooter from '../components/GlobalFooter/GlobalFooter';
 
 @connect(({users}) => ({
   me: users.me,
@@ -42,8 +43,14 @@ export default class Index extends React.PureComponent {
             <Route path="/comments/:id" exact component={require('./ReviewsAndComments/ShowComment').default}/>
 
             <Route path="/self_evaluation" exact component={require('./ReviewsAndComments/SelfEvaluation').default}/>
+
+            <Route path="/roles" exact component={require('./Roles/Index').default}/>
+            <Route path="/roles/add" exact component={require('./Roles/Add').default}/>
+            <Route path="/roles/:id" exact component={require('./Roles/Update').default}/>
             <Route component={require('../components/Exception/Page404').default}/>
+
           </Switch>
+          <GlobalFooter />
         </main>
       </div>
     );
