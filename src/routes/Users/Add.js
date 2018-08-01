@@ -20,7 +20,9 @@ export default class Edit extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader title="添加用户" isBack/>
+        <PageHeader title="添加用户" isBack onClick={() => {
+          this.props.history.push('/users');
+        }}/>
         <UserForm title="添加" onSubmit={this.onSubmit.bind(this)}/>
       </div>
     );

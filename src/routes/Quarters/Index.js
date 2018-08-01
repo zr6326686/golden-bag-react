@@ -19,7 +19,7 @@ export default class Index extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader noBtn title="季度管理"/>
+        <PageHeader title="季度管理"/>
         <StandardTable
           rowKey="id"
           columns={[

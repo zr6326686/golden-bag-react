@@ -76,7 +76,7 @@ export default class SelfEvaluation extends React.PureComponent {
   render() {
     return (
       <div className={ReviewsAndCommentsStyles.wrapper}>
-        <PageHeader title="自评" noBtn/>
+        <PageHeader title="自评"/>
         <TemplateTable
           isSelf
           basicInfo={this.props.me}

@@ -25,7 +25,7 @@ export default class Reviews extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader noBtn title="直接经理评分"/>
+        <PageHeader title="直接经理评分"/>
         <StandardTable
           rowKey="id"
           columns={[

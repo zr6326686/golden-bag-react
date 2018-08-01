@@ -51,7 +51,7 @@ export default class ShowReview extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader title="直接经理审核" noBtn/>
+        <PageHeader title="直接经理审核"/>
         <TemplateTable
           isIndirect
           onAuditOpinion={this.onAuditOpinion.bind(this)}

@@ -17,7 +17,7 @@ export default class Add extends React.PureComponent {
   }
 
   onSubmit(values) {
-    const hide = message.loading('创建角色中...', 0);
+    const hide = message.loading('更新角色中...', 0);
     values.permissions = values.permissions
       .reduce((prev, current) => [...prev, ...current])
       .map(item => ({id: item}));
@@ -32,7 +32,9 @@ export default class Add extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader title="添加角色" isBack/>
+        <PageHeader title="添加角色" isBack onClick={() => {
+          this.props.history.push('/roles');
+        }}/>
         <RoleForm
           currentRole={this.props.currentRole.data}
           currentPermissions={this.props.currentRole.meta && this.props.currentRole.meta.permissions}

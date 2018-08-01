@@ -76,7 +76,7 @@ export default class Index extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader title="部门管理" onAdd={() => this.setState({selectedKeys: [], currentDepartment: null})}/>
+        <PageHeader title="部门管理" onClick={() => this.setState({selectedKeys: [], currentDepartment: null})}/>
         <Row>
           <Col span={6}>
             <Spin spinning={this.props.loading}>

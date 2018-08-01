@@ -67,7 +67,7 @@ export default class UpdateTemplate extends React.PureComponent {
   render() {
     return (
       <div className={UpdateTemplateStyles.wrapper}>
-        <PageHeader noBtn title="编辑模板"/>
+        <PageHeader title="编辑模板"/>
         <div className={UpdateTemplateStyles.add_buttons}>
           <Button icon="plus" type="primary" onClick={() => {
             this.setState({showAddProjectDrawer: true});

@@ -21,7 +21,7 @@ export default class Index extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader title="用户管理" onAdd={() => {
+        <PageHeader title="用户管理" onClick={() => {
           this.props.history.push('/users/add')
         }}/>
         <StandardTable

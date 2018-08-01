@@ -23,7 +23,9 @@ export default class Add extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader title="添加角色" isBack/>
+        <PageHeader title="添加角色" isBack onClick={() => {
+          this.props.history.push('/roles');
+        }}/>
         <RoleForm onSubmit={this.onSubmit.bind(this)} title="添加"/>
       </div>
     );

@@ -25,7 +25,7 @@ export default class Comments extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader noBtn title="间接经理审核"/>
+        <PageHeader title="间接经理审核"/>
         <StandardTable
           rowKey="id"
           columns={[

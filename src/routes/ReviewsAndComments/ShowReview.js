@@ -83,7 +83,7 @@ export default class ShowReview extends React.PureComponent {
   render() {
     return (
       <div>
-        <PageHeader title="直接经理评分" noBtn/>
+        <PageHeader title="直接经理评分"/>
         <TemplateTable
           isDirect
           quarter={this.props.currentAssessment.quarter}
