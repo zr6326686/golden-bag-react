@@ -1,0 +1,15 @@
+.header {
+  color: #666;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .06);
+  height: 50px;
+  margin-bottom: 30px;
+}
+
+.header main {
+  align-items: center;
+  display: flex;
+}
+
+.menu {
+  margin-left: 10px;
+}

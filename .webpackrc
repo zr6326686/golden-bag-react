@@ -1,0 +1,10 @@
+{
+  "extraBabelPlugins": [
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+  ],
+  "proxy": {
+    "/": {
+      "target": "http://dev.hn-zm.com:8080/"
+    }
+  }
+}

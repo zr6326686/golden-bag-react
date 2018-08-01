@@ -1,0 +1,37 @@
+.wrapper {
+  position: relative;
+}
+
+.add_buttons {
+  position: absolute;
+  right: 0;
+  top: 7px;
+}
+
+.add_buttons button {
+  margin-left: 10px;
+}
+
+.remove_btn {
+  margin-top: 44px;
+}
+
+.add_project_item_btn {
+  width: 100%;
+}
+
+.form {
+  padding-bottom: 60px;
+}
+
+.buttom_btn {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #e8e8e8;
+  padding: 10px 16px;
+  text-align: right;
+  left: 0;
+  background: #fff;
+  border-radius: 0 0 4px 4px;
+}

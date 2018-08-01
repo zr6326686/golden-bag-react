@@ -1,0 +1,14 @@
+.page_header {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.page_header h1 {
+  font-size: 26px;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}

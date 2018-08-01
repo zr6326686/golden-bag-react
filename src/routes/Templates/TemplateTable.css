@@ -1,0 +1,25 @@
+.template {
+  padding: 60px;
+  background-color: #fff;
+}
+
+.table, .table th, .table td {
+  text-align: center;
+  padding: 8px 3px;
+  border: 1px solid #888;
+  border-collapse: collapse
+}
+
+.table {
+  width: 100%;
+}
+
+.table td {
+  padding: 0;
+  min-width: 100px;
+  background-color: #fff;
+}
+
+.table td.input_td {
+  height: 120px;
+}

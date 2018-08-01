@@ -1,0 +1,18 @@
+.main {
+  margin: 100px;
+}
+
+.main h1 {
+  color: #434e59;
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 72px;
+  margin-bottom: 40px;
+}
+
+.main p {
+  color: rgba(0, 0, 0, .45);
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 16px;
+}
