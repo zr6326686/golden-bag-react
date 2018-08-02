@@ -8,7 +8,6 @@ import {connect} from 'dva';
 export default class Add extends React.PureComponent {
 
   onSubmit(values) {
-    console.log(values);
     const hide = message.loading('创建角色中...', 0);
     values.permissions = values.permissions
       .map(item => ({id: item}));

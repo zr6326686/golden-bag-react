@@ -115,6 +115,14 @@ const menusMapping = {
       component: require('./ReviewsAndComments/SelfEvaluation').default,
     }
   ],
+  'assessment.summary': [
+    {
+      path: '/summary',
+      exact: true,
+      title: '考核汇总',
+      component: require('./Assessments/Index').default,
+    }
+  ]
 };
 
 @connect(({users, app, loading}) => ({
@@ -208,7 +216,7 @@ export default class Index extends React.PureComponent {
                 })
               }
             </Menu>
-            <Account user={this.props.me} />
+            <Account user={this.props.me}/>
           </main>
         </header>
         <main className="container">

@@ -1,4 +1,4 @@
-import {comment, queryAssessments, queryCommentList, queryReviewList, review, selfEvaluation} from '../services/api';
+import {comment, queryCurrentAssessments, queryCommentList, queryReviewList, review, selfEvaluation} from '../services/api';
 
 export default {
 
@@ -26,7 +26,7 @@ export default {
       });
     },
     * fetchCurrentAssessment({id}, {call, put}) {
-      const response = yield call(queryAssessments, id);
+      const response = yield call(queryCurrentAssessments, id);
       yield put({
         type: 'saveCurrentAssessment',
         payload: response.data.data,

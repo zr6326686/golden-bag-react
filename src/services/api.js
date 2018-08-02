@@ -115,7 +115,7 @@ export async function queryMe() {
   return request('/me');
 }
 
-export async function queryAssessments(id) {
+export async function queryCurrentAssessments(id) {
   return request(`/assessments/${id}`);
 }
 
@@ -147,4 +147,8 @@ export async function updateRole(id, role) {
 
 export async function fetchMenus() {
   return request('/permissions/menus');
+}
+
+export async function queryAssessments(quarterId) {
+  return request(quarterId ? `/assessments?quarter_id=${quarterId}` : '/assessments');
 }

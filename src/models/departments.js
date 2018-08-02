@@ -5,7 +5,7 @@ export default {
   namespace: 'departments',
 
   state: {
-    list: [],
+    list: {},
   },
 
   effects: {
