@@ -55,6 +55,10 @@ export async function queryQuarters() {
   return request('/quarters');
 }
 
+export async function queryTemplates() {
+  return request('/templates');
+}
+
 export async function queryCurrentTemplate(id) {
   return request(`/templates/${id}`);
 }

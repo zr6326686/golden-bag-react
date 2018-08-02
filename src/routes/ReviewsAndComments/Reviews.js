@@ -35,6 +35,7 @@ export default class Reviews extends React.PureComponent {
             },
             {
               label: '性别',
+              dataIndex: 'gender',
               render(gender) {
                 return gender === 'WOMAN' ? '女' : '男';
               },
@@ -49,6 +50,7 @@ export default class Reviews extends React.PureComponent {
             },
             {
               title: '状态',
+              dataIndex: 'status',
               render(status) {
                 const statusMap = {
                   SUBMITTED: {
@@ -68,7 +70,7 @@ export default class Reviews extends React.PureComponent {
                     title: '已完成',
                   },
                 };
-                return (<Badge status={statusMap[status].status} text={status[status].title}/>);
+                return (<Badge status={statusMap[status].status} text={statusMap[status].title}/>);
               }
             },
             {

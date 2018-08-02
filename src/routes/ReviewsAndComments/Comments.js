@@ -35,6 +35,7 @@ export default class Comments extends React.PureComponent {
             },
             {
               label: '性别',
+              dataIndex: 'gender',
               render(gender) {
                 return gender === 'WOMAN' ? '女' : '男';
               },
@@ -49,6 +50,7 @@ export default class Comments extends React.PureComponent {
             },
             {
               title: '状态',
+              dataIndex: 'status',
               render(status) {
                 const statusMap = {
                   SUBMITTED: {

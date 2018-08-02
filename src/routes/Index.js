@@ -69,6 +69,12 @@ const menusMapping = {
       exact: true,
       title: '编辑模板',
       component: require('./Templates/UpdateTemplate').default,
+    },
+    {
+      path: '/templates',
+      exact: true,
+      title: '模板列表',
+      component: require('./Templates/Index').default,
     }
   ],
   'directManagerScore': [
@@ -135,7 +141,9 @@ export default class Index extends React.PureComponent {
           <main className="container">
             <Logo/>
             <Menu className={IndexStyles.menu} mode="horizontal">
-              <Menu.Item key="index">
+              <Menu.Item key="index" onClick={() => {
+                this.props.history.push('/');
+              }}>
                 首页
               </Menu.Item>
 
@@ -149,10 +157,17 @@ export default class Index extends React.PureComponent {
                           return (
                             <Menu.ItemGroup key={index} title={cMenu.displayName}>
                               {
-                                menusMapping[cMenu.name].map((route, index) => {
-                                  return (<Menu.Item onClick={() => {
-                                    this.props.history.push(route.path)
-                                  }} key={index}>{route.title}</Menu.Item>);
+                                menusMapping[cMenu.name].map((route) => {
+                                  if (!route.path.includes(':')) {
+                                    return (
+                                      <Menu.Item key={route.path} onClick={() => {
+                                        this.props.history.push(route.path)
+                                      }}>{route.title}
+                                      </Menu.Item>
+                                    );
+                                  } else {
+                                    return null;
+                                  }
                                 })
                               }
                             </Menu.ItemGroup>
@@ -208,6 +223,5 @@ export default class Index extends React.PureComponent {
         </main>
       </div>
     )
-      ;
   }
 }

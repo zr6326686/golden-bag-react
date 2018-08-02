@@ -1,4 +1,4 @@
-import {addTemplateChild, queryCurrentTemplate, queryMyTemplate, updateTemplate} from '../services/api';
+import {addTemplateChild, queryCurrentTemplate, queryMyTemplate, queryTemplates, updateTemplate} from '../services/api';
 import {initialUppercase, underline2Hump} from '../utils/utils';
 import clone from 'clone';
 
@@ -7,6 +7,7 @@ export default {
   namespace: 'templates',
 
   state: {
+    list: [],
     current: {
       assessmentProjects: [],
       assessmentInputs: [],
@@ -19,6 +20,13 @@ export default {
 
 
   effects: {
+    * fetch(_, {call, put}) {
+      const response = yield call(queryTemplates);
+      yield put({
+        type: 'save',
+        payload: response.data.data,
+      });
+    },
     * fetchCurrent({id}, {call, put}) {
       const response = yield call(queryCurrentTemplate, id);
       yield put({
@@ -55,6 +63,13 @@ export default {
   },
 
   reducers: {
+    save(state, action) {
+      const list = [];
+      Object.keys(action.payload).forEach(key => {
+        list.push(...action.payload[key]);
+      });
+      return {...state, list};
+    },
     saveCurrent(state, action) {
       return {...state, current: action.payload};
     },
