@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../components/Logo/Logo';
 import IndexStyles from './Index.css';
-import {Menu} from 'antd';
+import {Menu, Spin} from 'antd';
 import {Route, Switch} from 'dva/router';
 import {connect} from 'dva';
 import GlobalFooter from '../components/GlobalFooter/GlobalFooter';
@@ -109,9 +109,10 @@ const menusMapping = {
   ]
 };
 
-@connect(({users, app}) => ({
+@connect(({users, app, loading}) => ({
   me: users.me,
   menus: app.menus,
+  loading: loading.models.app,
 }))
 export default class Index extends React.PureComponent {
   constructor(props) {
@@ -140,7 +141,7 @@ export default class Index extends React.PureComponent {
 
               {
 
-                this.props.menus.map((pMenu,index) => {
+                this.props.menus.map((pMenu, index) => {
                   return (
                     <Menu.SubMenu key={index} title={pMenu.displayName}>
                       {
@@ -166,41 +167,44 @@ export default class Index extends React.PureComponent {
           </main>
         </header>
         <main className="container">
-          <Switch>
-            {/*<Route path="/users" exact component={require('./Users/Index').default}/>*/}
-            {/*<Route path="/users/add" exact component={require('./Users/Add').default}/>*/}
-            {/*<Route path="/users/:id" exact component={require('./Users/Update').default}/>*/}
+          <Spin spinning={this.props.loading}>
+            <Switch>
+              {/*<Route path="/users" exact component={require('./Users/Index').default}/>*/}
+              {/*<Route path="/users/add" exact component={require('./Users/Add').default}/>*/}
+              {/*<Route path="/users/:id" exact component={require('./Users/Update').default}/>*/}
 
-            {/*<Route path="/departments" exact component={require('./Departments/Index').default}/>*/}
+              {/*<Route path="/departments" exact component={require('./Departments/Index').default}/>*/}
 
-            {/*<Route path="/templates/:id/update" exact component={require('./Templates/UpdateTemplate').default}/>*/}
+              {/*<Route path="/templates/:id/update" exact component={require('./Templates/UpdateTemplate').default}/>*/}
 
-            {/*<Route path="/quarters" exact component={require('./Quarters/Index').default}/>*/}
+              {/*<Route path="/quarters" exact component={require('./Quarters/Index').default}/>*/}
 
-            {/*<Route path="/reviews" exact component={require('./ReviewsAndComments/Reviews').default}/>*/}
-            {/*<Route path="/reviews/:id" exact component={require('./ReviewsAndComments/ShowReview').default}/>*/}
+              {/*<Route path="/reviews" exact component={require('./ReviewsAndComments/Reviews').default}/>*/}
+              {/*<Route path="/reviews/:id" exact component={require('./ReviewsAndComments/ShowReview').default}/>*/}
 
-            {/*<Route path="/comments" exact component={require('./ReviewsAndComments/Comments').default}/>*/}
-            {/*<Route path="/comments/:id" exact component={require('./ReviewsAndComments/ShowComment').default}/>*/}
+              {/*<Route path="/comments" exact component={require('./ReviewsAndComments/Comments').default}/>*/}
+              {/*<Route path="/comments/:id" exact component={require('./ReviewsAndComments/ShowComment').default}/>*/}
 
-            {/*<Route path="/self_evaluation" exact component={require('./ReviewsAndComments/SelfEvaluation').default}/>*/}
+              {/*<Route path="/self_evaluation" exact component={require('./ReviewsAndComments/SelfEvaluation').default}/>*/}
 
-            {/*<Route path="/roles" exact component={require('./Roles/Index').default}/>*/}
-            {/*<Route path="/roles/add" exact component={require('./Roles/Add').default}/>*/}
-            {/*<Route path="/roles/:id" exact component={require('./Roles/Update').default}/>*/}
-            <Route path="/" exact render={() => {
-              return <h1>这就是首页</h1>;
-            }}/>
-            {
-              this.flatMenus.map(items => {
-                return menusMapping[items.name].map((route, index) => {
-                  return <Route key={index} path={route.path} exact component={route.component}/>
-                });
-              })
-            }
-            <Route component={require('../components/Exception/Page404').default}/>
-          </Switch>
+              {/*<Route path="/roles" exact component={require('./Roles/Index').default}/>*/}
+              {/*<Route path="/roles/add" exact component={require('./Roles/Add').default}/>*/}
+              {/*<Route path="/roles/:id" exact component={require('./Roles/Update').default}/>*/}
+              <Route path="/" exact render={() => {
+                return <h1>这就是首页</h1>;
+              }}/>
+              {
+                this.flatMenus.map(items => {
+                  return menusMapping[items.name].map((route, index) => {
+                    return <Route key={index} path={route.path} exact component={route.component}/>
+                  });
+                })
+              }
+              <Route component={require('../components/Exception/Page404').default}/>
+            </Switch>
+          </Spin>
           <GlobalFooter/>
+
         </main>
       </div>
     )

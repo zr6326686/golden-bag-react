@@ -7,7 +7,7 @@ export default class Page404 extends React.PureComponent {
     return (
       <main className={ExceptionStyles.main}>
         <h1>(*+﹏+*)~ 404</h1>
-        <p>抱歉，你访问的页面不存在</p>
+        <p>抱歉，你访问的页面可能不存在</p>
         <Button type="primary" size="large">返回首页</Button>
       </main>
     );
