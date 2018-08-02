@@ -75,6 +75,7 @@ export default class ShowReview extends React.PureComponent {
           reviewData: self.reviews,
         }).then(() => {
           hide();
+          this.props.history.push('/reviews');
         });
       }
     });

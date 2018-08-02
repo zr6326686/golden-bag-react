@@ -43,6 +43,7 @@ export default class ShowReview extends React.PureComponent {
           commentData: self.commentData,
         }).then(() => {
           hide();
+          this.props.history.push('/comments');
         });
       }
     });
