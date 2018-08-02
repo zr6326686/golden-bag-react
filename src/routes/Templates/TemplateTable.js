@@ -271,22 +271,29 @@ export default class TemplateTable extends React.PureComponent {
           </tr>
           <tr className="editable" colSpan="10">
             <td className="input_td" colSpan="10">
-              <InputCell
-                onBlur={v => this.props.onReviewEvaluate(v)}
-                disabled={this.props.isEditTemplate || !this.props.isDirect}
-                value={this.props.directManagerEvaluation}
-                type="textarea"
-              />
+              {this.props.directManagerEvaluation ?
+                <InputCell
+                  onBlur={v => this.props.onReviewEvaluate(v)}
+                  disabled={this.props.isEditTemplate || !this.props.isDirect}
+                  value={this.props.directManagerEvaluation}
+                  key="directManagerEvaluation"
+                  type="textarea"
+                /> : <InputCell key="directManagerEvaluation-none" disabled type="textarea"/>}
             </td>
           </tr>
           <tr>
             <td colSpan="4"><InputCell disabled value="间接经理审核意见"/></td>
             <td colSpan="6">
-              <InputCell
-                onBlur={v => this.props.onAuditOpinion(v)}
-                value={this.props.indirectManagerAuditComments}
-                disabled={this.props.isEditTemplate || !this.props.isIndirect}
-              />
+              {
+                this.props.indirectManagerAuditComments ?
+
+                  <InputCell
+                    onBlur={v => this.props.onAuditOpinion(v)}
+                    value={this.props.indirectManagerAuditComments}
+                    disabled={this.props.isEditTemplate || !this.props.isIndirect}
+                    key="indirectManagerAuditComments"
+                  /> : <InputCell key="indirectManagerAuditComments-none" disabled/>
+              }
             </td>
           </tr>
           </tbody>

@@ -128,6 +128,12 @@ const menusMapping = {
       exact: true,
       title: '考核汇总',
       component: require('./Assessments/Index').default,
+    },
+    {
+      path: '/assessment/:id',
+      exact: true,
+      title: '显示考核表',
+      component: require('./Assessments/Show').default,
     }
   ]
 };

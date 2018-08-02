@@ -34,7 +34,8 @@ class StandardTable extends PureComponent {
   };
   handleTableChange = (pagination, filters, sorter) => {
     const {onChange} = this.props;
-    onChange(pagination, filters, sorter);
+
+    onChange({...pagination, current: pagination.current - 1}, filters, sorter);
   };
   cleanSelectedKeys = () => {
     this.handleRowSelectChange([], []);

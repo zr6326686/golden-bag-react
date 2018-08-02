@@ -96,7 +96,7 @@ export default class Index extends React.PureComponent {
 
 
   render() {
-
+    const self = this;
     return (
       <div>
         <PageHeader title="审核记录汇总"/>
@@ -164,9 +164,14 @@ export default class Index extends React.PureComponent {
               title: '操作',
               render(item) {
                 return (
-                  <Button onClick={() => {
-                    Index.exportOne(item.id);
-                  }} type="primary">导出</Button>
+                  <React.Fragment>
+                    <Button onClick={() => {
+                      self.props.history.push(`/assessment/${item.id}`);
+                    }}>查看</Button>
+                    <Button style={{marginLeft: 10}} onClick={() => {
+                      Index.exportOne(item.id);
+                    }} type="primary">导出</Button>
+                  </React.Fragment>
                 );
               }
             },

@@ -8,6 +8,10 @@ export default class Account extends React.PureComponent {
     user: PropTypes.object,
   };
 
+  static defaultProp = {
+    user: {}
+  };
+
   render() {
     const menu = (
       <Menu>
@@ -24,7 +28,7 @@ export default class Account extends React.PureComponent {
           <Avatar size="large">{this.props.user.name}</Avatar>
           <div className={AccountStyles.info}>
             <span>{this.props.user.name}</span>
-            <p>{this.props.user.roles && this.props.user.roles[0].name}</p>
+            <p>{this.props.user.roles && this.props.user.roles.length && this.props.user.roles[0].name}</p>
           </div>
         </div>
       </Dropdown>
