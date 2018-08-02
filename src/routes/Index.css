@@ -1,16 +1,27 @@
 .header {
   color: #666;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .06);
-  height: 50px;
+  height: 60px;
   margin-bottom: 30px;
 }
 
 .header main {
   align-items: center;
   display: flex;
+  height: 100%;
 }
-
+.header main ul, .header main  li , .header main  li > div{
+  height: 100%;
+}
+.header main  li , .header main  li > div{
+  display: flex;
+  align-items: center;
+}
 .menu {
   border: 0;
   margin-left: 10px;
+  flex-grow: 1;
+}
+.header .account{
+  float: right;
 }

@@ -5,6 +5,8 @@ import {Menu, Spin} from 'antd';
 import {Route, Switch} from 'dva/router';
 import {connect} from 'dva';
 import GlobalFooter from '../components/GlobalFooter/GlobalFooter';
+import Account from '../components/Account/Account';
+import {isLogin} from '../utils/utils';
 
 const menusMapping = {
   'basic.user': [
@@ -63,7 +65,7 @@ const menusMapping = {
       component: require('./Departments/Index').default,
     }
   ],
-  'template_module.template_module': [
+  'template_module.template': [
     {
       path: '/templates/:id/update',
       exact: true,
@@ -112,7 +114,7 @@ const menusMapping = {
       title: '自评',
       component: require('./ReviewsAndComments/SelfEvaluation').default,
     }
-  ]
+  ],
 };
 
 @connect(({users, app, loading}) => ({
@@ -123,6 +125,11 @@ const menusMapping = {
 export default class Index extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    if (!isLogin()) {
+      window.location = '/auth/login?callback=' + window.location;
+    }
+
     this.props.dispatch({type: 'users/fetchMe'});
     this.flatMenus = [];
     this.props.dispatch({type: 'app/fetchMenus'}).then(() => {
@@ -170,24 +177,30 @@ export default class Index extends React.PureComponent {
                     <Menu.SubMenu key={index} title={pMenu.displayName}>
                       {
                         pMenu.children.map((cMenu, index) => {
-                          return (
-                            <Menu.ItemGroup key={index} title={cMenu.displayName}>
-                              {
-                                menusMapping[`${pMenu.name}.${cMenu.name}`].map((route) => {
-                                  if (!route.path.includes(':')) {
-                                    return (
-                                      <Menu.Item key={route.path} onClick={() => {
-                                        this.props.history.push(route.path)
-                                      }}>{route.title}
-                                      </Menu.Item>
-                                    );
-                                  } else {
-                                    return null;
-                                  }
-                                })
-                              }
-                            </Menu.ItemGroup>
-                          );
+                          const menuItem = menusMapping[`${pMenu.name}.${cMenu.name}`];
+                          if (menuItem) {
+                            return (
+                              <Menu.ItemGroup key={index} title={cMenu.displayName}>
+                                {
+
+                                  menuItem.map((route) => {
+                                    if (!route.path.includes(':')) {
+                                      return (
+                                        <Menu.Item key={route.path} onClick={() => {
+                                          this.props.history.push(route.path)
+                                        }}>{route.title}
+                                        </Menu.Item>
+                                      );
+                                    } else {
+                                      return null;
+                                    }
+                                  })
+                                }
+                              </Menu.ItemGroup>
+                            );
+                          } else {
+                            return null;
+                          }
                         })
                       }
                     </Menu.SubMenu>
@@ -195,6 +208,7 @@ export default class Index extends React.PureComponent {
                 })
               }
             </Menu>
+            <Account user={this.props.me} />
           </main>
         </header>
         <main className="container">
@@ -226,7 +240,8 @@ export default class Index extends React.PureComponent {
               }}/>
               {
                 this.flatMenus.map(items => {
-                  return menusMapping[items.fullName].map((route, index) => {
+                  const menuItem = menusMapping[items.fullName] || [];
+                  return menuItem.map((route, index) => {
                     return <Route key={index} path={route.path} exact component={route.component}/>
                   });
                 })

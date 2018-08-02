@@ -36,7 +36,7 @@ export default class Index extends React.PureComponent {
               title: '操作',
               render: (item) => (
                 <React.Fragment>
-                  <Link to={`/users/${item.id}`}><Icon type="edit"/> 编辑</Link>
+                  <Link to={`/roles/${item.id}`}><Icon type="edit"/> 编辑</Link>
                   <Divider type="vertical"/>
                   <a href=""><Icon type="delete"/> 删除</a>
                 </React.Fragment>

@@ -16,3 +16,13 @@ export function underline2Hump(underlineName) {
 export function initialUppercase(title) {
   return title[0].toUpperCase() + title.substring(1);
 }
+
+export function isLogin() {
+  const cookies = document.cookie.split(';');
+  for (const item of cookies) {
+    if (item.split('=')[0].trim() === 'user_id') {
+      return true;
+    }
+  }
+  return false;
+}
