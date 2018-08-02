@@ -141,25 +141,10 @@ export default class Index extends React.PureComponent {
     this.props.dispatch({type: 'users/fetchMe'});
     this.flatMenus = [];
     this.props.dispatch({type: 'app/fetchMenus'}).then(() => {
-      this.flatMenus = this.props.menus.reduce((previousValue, currentValue) => {
-
-        let prev = previousValue.children && previousValue.children.length > 0 ? previousValue.children : previousValue;
-
-        if (!(previousValue instanceof Array)) {
-          prev = previousValue.children.map(item => {
-            return {
-              ...item,
-              fullName: `${previousValue.name}.${item.name}`,
-            };
-          });
-        }
-        const cMenu = currentValue.children.map(item => {
-          return {
-            ...item,
-            fullName: `${currentValue.name}.${item.name}`,
-          };
-        });
-        return [...prev, ...cMenu];
+      this.props.menus.forEach(pMenu => {
+        this.flatMenus.push(pMenu.children.map(cMenu => {
+          return cMenu.fullName = `${pMenu.name}.${cMenu.name}`
+        }));
       });
       this.forceUpdate();
     });
