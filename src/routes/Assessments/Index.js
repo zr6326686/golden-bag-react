@@ -20,6 +20,16 @@ export default class Index extends React.PureComponent {
     };
   }
 
+  // 导出指定一条记录
+  static exportOne(id) {
+    window.location = `/assessments/export/${id}`;
+  }
+
+  // 导出当前季度
+  static exportCurrent() {
+    window.location = '/assessments/batch_export/byquarters';
+  }
+
   componentDidMount() {
     this.props.dispatch({
       type: 'assessments/fetch',
@@ -37,18 +47,6 @@ export default class Index extends React.PureComponent {
       quarterId: this.state.filterValues.quarterId,
     });
   }
-
-  // 导出指定一条记录
-  static exportOne(id) {
-    window.location = `/assessments/export/${id}`;
-  }
-
-
-  // 导出当前季度
-  static exportCurrent() {
-    window.location = '/assessments/batch_export/byquarters';
-  }
-
 
   batchExport() {
     const assessmentIds = this.state.selectedRows.map(item => {

@@ -1,17 +1,17 @@
-.options{
+.options {
   margin-bottom: 20px;
   margin-top: 10px;
   overflow: hidden;
 }
 
-.form{
+.form {
   float: left;
 }
 
-.select{
+.select {
   min-width: 180px;
 }
 
-.batch_export{
+.batch_export {
   margin-top: 5px;
 }

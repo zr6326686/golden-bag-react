@@ -9,7 +9,7 @@ export default {
   },
 
   effects: {
-    * fetch({quarterId,page = 0, size = 10}, {call, put}) {
+    * fetch({quarterId, page = 0, size = 10}, {call, put}) {
       const response = yield call(queryAssessments, quarterId, page, size);
       yield put({
         type: 'save',
