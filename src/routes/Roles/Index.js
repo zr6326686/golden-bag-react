@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'dva';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import StandardTable from '../../components/StandardTable/index';
-import {Divider, Icon} from 'antd';
+import {Divider, Icon, message, Modal} from 'antd';
 import {Link} from 'react-router-dom';
 
 @connect(({roles, loading}) => ({
@@ -17,10 +17,40 @@ export default class Index extends React.PureComponent {
     };
   }
 
+  delUser(id) {
+    const self = this;
+    Modal.confirm({
+      title: '你确定要删除该角色？',
+      content: '确定要删除？',
+      onOk() {
+        const hide = message.loading('删除中..', 0);
+        self.props.dispatch({
+          type: 'roles/delRole',
+          id,
+        }).then(() => {
+          hide();
+          self.props.dispatch({
+            type: 'roles/fetch',
+          });
+        });
+      }
+    });
+  }
+
+  handleStandardTableChange(pagination) {
+    this.props.dispatch({
+      type: 'roles/fetch',
+      page: pagination.current,
+      size: pagination.pageSize,
+    });
+  }
+
   render() {
     return (
       <div>
-        <PageHeader title="角色管理"/>
+        <PageHeader title="角色管理" onClick={() => {
+          this.props.history.push('/roles/add');
+        }}/>
         <StandardTable
           rowKey="id"
           columns={[
@@ -38,11 +68,14 @@ export default class Index extends React.PureComponent {
                 <React.Fragment>
                   <Link to={`/roles/${item.id}`}><Icon type="edit"/> 编辑</Link>
                   <Divider type="vertical"/>
-                  <a href=""><Icon type="delete"/> 删除</a>
+                  <a onClick={() => {
+                    this.delUser(item.id);
+                  }}><Icon type="delete"/> 删除</a>
                 </React.Fragment>
               ),
             }
           ]}
+          onChange={this.handleStandardTableChange.bind(this)}
           data={this.props.list}
           loading={this.props.loading}
           selectedRows={this.state.selectedRows}/>

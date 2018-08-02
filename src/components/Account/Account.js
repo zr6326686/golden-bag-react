@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountStyles from './Account.css';
 import PropTypes from 'prop-types';
-import {Avatar, Menu, Dropdown} from 'antd';
+import {Avatar, Dropdown, Menu} from 'antd';
 
 export default class Account extends React.PureComponent {
   static propTypes = {

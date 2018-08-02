@@ -17,8 +17,8 @@ export default {
   },
 
   effects: {
-    * fetch(_, {call, put}) {
-      const response = yield call(queryUsers);
+    * fetch({page = 0, size = 10}, {call, put}) {
+      const response = yield call(queryUsers, page, size);
       yield put({
         type: 'saveUsers',
         payload: response.data.data,

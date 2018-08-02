@@ -1,4 +1,11 @@
-import {comment, queryCurrentAssessments, queryCommentList, queryReviewList, review, selfEvaluation} from '../services/api';
+import {
+  comment,
+  queryCommentList,
+  queryCurrentAssessments,
+  queryReviewList,
+  review,
+  selfEvaluation
+} from '../services/api';
 
 export default {
 
@@ -18,8 +25,8 @@ export default {
   },
 
   effects: {
-    * fetchReviews(_, {call, put}) {
-      const response = yield call(queryReviewList);
+    * fetchReviews({page = 0, size = 10}, {call, put}) {
+      const response = yield call(queryReviewList, page, size);
       yield put({
         type: 'saveReviews',
         payload: response.data.data,
@@ -32,8 +39,8 @@ export default {
         payload: response.data.data,
       });
     },
-    * fetchComments(_, {call, put}) {
-      const response = yield call(queryCommentList);
+    * fetchComments({page = 0, size = 10}, {call, put}) {
+      const response = yield call(queryCommentList, page, size);
       yield put({
         type: 'saveComments',
         payload: response.data.data,

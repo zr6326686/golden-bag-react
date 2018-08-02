@@ -15,7 +15,7 @@ export default class ShowReview extends React.PureComponent {
     super(props);
     this.reviews = {
       directManagerEvaluation: '',
-      assessmentProjectsScores: [],
+      assessmentProjectScores: [],
     };
   }
 
@@ -28,32 +28,32 @@ export default class ShowReview extends React.PureComponent {
 
   onReviewScore(projectId, v) {
     const index =
-      this.reviews.assessmentProjectsScores
+      this.reviews.assessmentProjectScores
         .findIndex(item => item.assessmentProject.id === projectId);
     if (index >= 0) {
-      this.reviews.assessmentProjectsScores[index].managerScore = v;
+      this.reviews.assessmentProjectScores[index].managerScore = v;
     } else {
-      this.reviews.assessmentProjectsScores.push({
+      this.reviews.assessmentProjectScores.push({
         assessmentProject: {
           id: projectId,
-          managerScore: v,
-        }
+        },
+        managerScore: v,
       });
     }
   }
 
   onReviewRemark(projectId, v) {
     const index =
-      this.reviews.assessmentProjectsScores
+      this.reviews.assessmentProjectScores
         .findIndex(item => item.assessmentProject.id === projectId);
     if (index >= 0) {
-      this.reviews.assessmentProjectsScores[index].remarks = v;
+      this.reviews.assessmentProjectScores[index].remarks = v;
     } else {
-      this.reviews.assessmentProjectsScores.push({
+      this.reviews.assessmentProjectScores.push({
         assessmentProject: {
           id: projectId,
-          remarks: v,
-        }
+        },
+        managerScore: v,
       });
     }
   }
@@ -92,7 +92,6 @@ export default class ShowReview extends React.PureComponent {
           onReviewScore={this.onReviewScore.bind(this)}
           onReviewRemark={this.onReviewRemark.bind(this)}
           onReviewEvaluate={this.onReviewEvaluate.bind(this)}
-
           totalSelfScore={this.props.currentAssessment.totalSelfScore}
           directManagerEvaluation={this.props.currentAssessment.directManagerEvaluation}
           assessmentInputContents={this.props.currentAssessment.assessmentInputContents}

@@ -3,7 +3,7 @@ import InputCell from './InputCell';
 import TemplateTableStyles from './TemplateTable.css';
 import PropTypes from 'prop-types';
 
-export default class TemplateTable extends React.Component {
+export default class TemplateTable extends React.PureComponent {
   static propTypes = {
     basicInfo: PropTypes.object,
     isSelf: PropTypes.bool,
@@ -200,10 +200,12 @@ export default class TemplateTable extends React.Component {
         <table cellPadding="0" className={TemplateTableStyles.table}>
           <tbody>
           <tr>
-            <td colSpan="10"><InputCell disabled value="上海容大数字技术有限公司"/></td>
+            <td colSpan="10" className={TemplateTableStyles.table_title}><InputCell disabled value="上海容大数字技术有限公司"/></td>
           </tr>
           <tr>
-            <td colSpan="10"><InputCell disabled value={this.props.currentTemplate.name}/></td>
+            <td colSpan="10" className={TemplateTableStyles.table_title}><InputCell disabled
+                                                                                    value={this.props.currentTemplate.name}/>
+            </td>
           </tr>
           <tr>
             <td colSpan="10"><InputCell disabled value="注：本表适用于不带团队的员工填写"/></td>

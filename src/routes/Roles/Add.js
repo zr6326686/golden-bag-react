@@ -16,6 +16,7 @@ export default class Add extends React.PureComponent {
       role: values,
     }).then(() => {
       hide();
+      this.props.history.push('/roles');
     });
   }
 

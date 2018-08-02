@@ -1,4 +1,11 @@
-import {addTemplateChild, queryCurrentTemplate, queryMyTemplate, queryTemplates, updateTemplate} from '../services/api';
+import {
+  addTemplateChild,
+  queryCurrentTemplate,
+  queryMyTemplate,
+  queryTemplates,
+  queryTemplateTypes,
+  updateTemplate
+} from '../services/api';
 import {initialUppercase, underline2Hump} from '../utils/utils';
 import clone from 'clone';
 
@@ -16,12 +23,13 @@ export default {
       assessmentProjects: [],
       assessmentInputs: [],
     },
+    templateTypes: []
   },
 
 
   effects: {
-    * fetch(_, {call, put}) {
-      const response = yield call(queryTemplates);
+    * fetch({page = 0, size = 10}, {call, put}) {
+      const response = yield call(queryTemplates, page, size);
       yield put({
         type: 'save',
         payload: response.data.data,
@@ -59,9 +67,16 @@ export default {
         type: `add${initialUppercase(underline2Hump(templateChildType))}`,
         payload: response.data.data,
       });
-    }
-  },
+    },
+    * fetchTemplateTypes(_, {call, put}) {
 
+      const response = yield call(queryTemplateTypes);
+      yield put({
+        type: 'saveTemplateTypes',
+        payload: response.data.data,
+      });
+    },
+  },
   reducers: {
     save(state, action) {
       const list = [];
@@ -128,6 +143,12 @@ export default {
       stateBak.current.assessmentInputs.push(payload);
       return stateBak;
     },
+    saveTemplateTypes(state, {payload}) {
+      return {
+        ...state,
+        templateTypes: payload,
+      };
+    }
   },
 
 };

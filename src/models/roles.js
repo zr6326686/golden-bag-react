@@ -1,19 +1,19 @@
-import {addRole, queryCurrentRoles, queryPermissions, queryRoles, updateRole} from '../services/api';
+import {addRole, delRole, queryCurrentRoles, queryPermissions, queryRoles, updateRole} from '../services/api';
 
 export default {
 
   namespace: 'roles',
 
   state: {
-    list: {},
+    list: {content: []},
     permissions: {},
     current: {},
   },
 
 
   effects: {
-    * fetch(_, {call, put}) {
-      const response = yield call(queryRoles);
+    * fetch({page = 0, size = 10}, {call, put}) {
+      const response = yield call(queryRoles, page, size);
       yield put({
         type: 'saveRoles',
         payload: response.data.data,
@@ -39,6 +39,9 @@ export default {
     * updateRole({id, role}, {call}) {
       yield call(updateRole, id, role);
     },
+    * delRole({id}, {call, put}) {
+      yield call(delRole, id);
+    }
   },
 
   reducers: {

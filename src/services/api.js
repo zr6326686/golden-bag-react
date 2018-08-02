@@ -1,7 +1,7 @@
 import request from '../utils/request';
 
-export async function queryUsers() {
-  return request('/users');
+export async function queryUsers(page = 0, size = 10) {
+  return request(`/users?page=${page}&size=${size}`);
 }
 
 export async function queryCurrentUser(id) {
@@ -26,8 +26,8 @@ export async function searchUser(params) {
   return request('/users/search?' + new URLSearchParams(params).toString());
 }
 
-export async function queryDepartments() {
-  return request('/departments');
+export async function queryDepartments(page = 0, size = 10) {
+  return request(`/departments?page=${page}&size=${size}`);
 }
 
 
@@ -51,12 +51,21 @@ export async function delDepartment(id) {
   });
 }
 
-export async function queryQuarters() {
-  return request('/quarters');
+export async function queryQuarters(page = 0, size = 10) {
+  return request(`/quarters?page=${page}&size=${size}`);
+}
+export async function queryCurrentQuarter(id) {
+  return request(`/quarters/${id}`);
+}
+export async function updateQuarter(id, quarter) {
+  return request(`/quarters/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(quarter),
+  });
 }
 
-export async function queryTemplates() {
-  return request('/templates');
+export async function queryTemplates(page = 0, size = 10) {
+  return request(`/templates?page=${page}&size=${size}`);
 }
 
 export async function queryCurrentTemplate(id) {
@@ -82,12 +91,12 @@ export async function addTemplateChild(id, type, params) {
   });
 }
 
-export async function queryReviewList() {
-  return request(`/me/review_list`);
+export async function queryReviewList(page = 0, size = 10) {
+  return request(`/me/review_list?page=${page}&size=${size}`);
 }
 
-export async function queryCommentList() {
-  return request(`/me/comment_list`);
+export async function queryCommentList(page = 0, size = 10) {
+  return request(`/me/comment_list?page=${page}&size=${size}`);
 }
 
 export async function review(id, reviewData) {
@@ -119,8 +128,8 @@ export async function queryCurrentAssessments(id) {
   return request(`/assessments/${id}`);
 }
 
-export async function queryRoles() {
-  return request('/roles');
+export async function queryRoles(page = 0, size = 10) {
+  return request(`/roles?page=${page}&size=${size}`);
 }
 
 export async function queryCurrentRoles(id) {
@@ -138,6 +147,12 @@ export async function addRole(role) {
   });
 }
 
+export async function delRole(id) {
+  return request(`/roles/${id}`, {
+    method: 'DELETE',
+  });
+}
+
 export async function updateRole(id, role) {
   return request(`/roles/${id}`, {
     method: 'PUT',
@@ -152,3 +167,8 @@ export async function fetchMenus() {
 export async function queryAssessments(quarterId) {
   return request(quarterId ? `/assessments?quarter_id=${quarterId}` : '/assessments');
 }
+
+export async function queryTemplateTypes() {
+  return request('/templates/types');
+}
+

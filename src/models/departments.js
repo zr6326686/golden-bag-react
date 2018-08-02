@@ -9,8 +9,8 @@ export default {
   },
 
   effects: {
-    * fetch(_, {call, put}) {
-      const response = yield call(queryDepartments);
+    * fetch({page = 0, size = 10}, {call, put}) {
+      const response = yield call(queryDepartments, page, size);
       yield put({
         type: 'saveDepartments',
         payload: response.data.data,

@@ -56,6 +56,12 @@ const menusMapping = {
       title: '季度列表',
       component: require('./Quarters/Index').default,
     },
+    {
+      path: '/quarters/:id',
+      exact: true,
+      title: '更新季度',
+      component: require('./Quarters/Update').default,
+    },
   ],
   'basic.department': [
     {
@@ -142,8 +148,8 @@ export default class Index extends React.PureComponent {
     this.flatMenus = [];
     this.props.dispatch({type: 'app/fetchMenus'}).then(() => {
       this.props.menus.forEach(pMenu => {
-        this.flatMenus.push(pMenu.children.map(cMenu => {
-          return cMenu.fullName = `${pMenu.name}.${cMenu.name}`
+        this.flatMenus.push(...pMenu.children.map(cMenu => {
+          return `${pMenu.name}.${cMenu.name}`;
         }));
       });
       this.forceUpdate();
@@ -229,11 +235,23 @@ export default class Index extends React.PureComponent {
               {/*<Route path="/roles/add" exact component={require('./Roles/Add').default}/>*/}
               {/*<Route path="/roles/:id" exact component={require('./Roles/Update').default}/>*/}
               <Route path="/" exact render={() => {
-                return <h1>这就是首页</h1>;
+                return (
+                  <div>
+                    <h1>这就是首页</h1>
+                    <img style={{width: 200}} src={require('../assets/1.jpg')} alt=""/>
+                    <img style={{width: 50}} src={require('../assets/2.jpg')} alt=""/>
+                    <img style={{
+                      width: 200,
+                      position: 'absolute',
+                      top: -30,
+                      left: 140,
+                    }} src={require('../assets/3.png')} alt=""/>
+                  </div>
+                );
               }}/>
               {
-                this.flatMenus.map(items => {
-                  const menuItem = menusMapping[items.fullName] || [];
+                this.flatMenus.map(fullName => {
+                  const menuItem = menusMapping[fullName] || [];
                   return menuItem.map((route, index) => {
                     return <Route key={index} path={route.path} exact component={route.component}/>
                   });

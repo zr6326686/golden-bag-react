@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'dva';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import StandardTable from '../../components/StandardTable/index';
+import {Link} from 'react-router-dom';
+import {Icon} from 'antd';
 import moment from 'moment';
 
 @connect(({quarters, loading}) => ({
@@ -15,7 +17,13 @@ export default class Index extends React.PureComponent {
       selectedRows: [],
     };
   }
-
+  handleStandardTableChange(pagination) {
+    this.props.dispatch({
+      type: 'quarters/fetch',
+      page: pagination.current,
+      size: pagination.pageSize,
+    });
+  }
   render() {
     return (
       <div>
@@ -45,9 +53,18 @@ export default class Index extends React.PureComponent {
                 return startAssessmentDate ? moment(startAssessmentDate).format('YYYY-MM-DD') : '';
               }
             },
+            {
+              title: '操作',
+              render: (item) => (
+                <React.Fragment>
+                  <Link to={`/quarters/${item.id}`}><Icon type="edit"/> 编辑</Link>
+                </React.Fragment>
+              ),
+            }
           ]}
           data={this.props.list}
           loading={this.props.loading}
+          onChange={this.handleStandardTableChange.bind(this)}
           selectedRows={this.state.selectedRows}/>
       </div>
     );

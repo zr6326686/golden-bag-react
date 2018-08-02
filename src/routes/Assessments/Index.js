@@ -22,6 +22,14 @@ export default class Index extends React.PureComponent {
     });
   }
 
+  handleStandardTableChange(pagination) {
+    this.props.dispatch({
+      type: 'assessments/fetch',
+      page: pagination.current,
+      size: pagination.pageSize,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -31,10 +39,10 @@ export default class Index extends React.PureComponent {
           columns={[
             {
               title: '姓名',
-              dataIndex: 'uname',
+              dataIndex: 'user.name',
             },
             {
-              label: '性别',
+              title: '性别',
               dataIndex: 'gender',
               render(gender) {
                 return gender === 'WOMAN' ? '女' : '男';
@@ -42,11 +50,19 @@ export default class Index extends React.PureComponent {
             },
             {
               title: '时间系数',
-              dataIndex: 'time_coefficient',
+              dataIndex: 'timeCoefficient',
+            },
+            {
+              title: '职级系数',
+              dataIndex: 'rankCoefficient',
             },
             {
               title: '自评得分',
-              dataIndex: 'total_self_score',
+              dataIndex: 'totalSelfScore',
+            },
+            {
+              title: '直接经理评分',
+              dataIndex: 'totalManagerScore',
             },
             {
               title: '状态',
@@ -70,18 +86,19 @@ export default class Index extends React.PureComponent {
                     title: '已完成',
                   },
                 };
-                return (<Badge status={statusMap[status].status} text={status[status].title}/>);
+                return (<Badge status={statusMap[status].status} text={statusMap[status].title}/>);
               }
             },
             {
               title: '操作',
               render() {
                 return (
-                  <Button type="primary">评价</Button>
+                  <Button type="primary">导出</Button>
                 );
               }
             },
           ]}
+          onChange={this.handleStandardTableChange.bind(this)}
           data={this.props.list}
           loading={this.props.loading}
           selectedRows={this.state.selectedRows}/>

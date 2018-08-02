@@ -10,18 +10,22 @@
   display: flex;
   height: 100%;
 }
-.header main ul, .header main  li , .header main  li > div{
+
+.header main ul, .header main li, .header main li > div {
   height: 100%;
 }
-.header main  li , .header main  li > div{
+
+.header main li, .header main li > div {
   display: flex;
   align-items: center;
 }
+
 .menu {
   border: 0;
   margin-left: 10px;
   flex-grow: 1;
 }
-.header .account{
+
+.header .account {
   float: right;
 }

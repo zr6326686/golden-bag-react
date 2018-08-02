@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'dva';
+import {Link} from 'react-router-dom';
 import {Badge, Button} from 'antd';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import StandardTable from '../../components/StandardTable/index';
+
 
 @connect(({reviewsAndComments, loading}) => ({
   loading: loading.models.reviewsAndComments,
@@ -22,6 +24,14 @@ export default class Reviews extends React.PureComponent {
     });
   }
 
+  handleStandardTableChange(pagination) {
+    this.props.dispatch({
+      type: 'reviewsAndComments/fetchReviews',
+      page: pagination.current,
+      size: pagination.pageSize,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -34,15 +44,15 @@ export default class Reviews extends React.PureComponent {
               dataIndex: 'uname',
             },
             {
-              label: '性别',
+              title: '性别',
               dataIndex: 'gender',
               render(gender) {
                 return gender === 'WOMAN' ? '女' : '男';
               },
             },
             {
-              title: '时间系数',
-              dataIndex: 'time_coefficient',
+              title: '季度',
+              dataIndex: 'quarter.name',
             },
             {
               title: '自评得分',
@@ -75,15 +85,18 @@ export default class Reviews extends React.PureComponent {
             },
             {
               title: '操作',
-              render() {
+              render(item) {
                 return (
-                  <Button type="primary">审核</Button>
+                  <Link to={`/reviews/${item.id}`}>
+                    <Button type="primary">审核</Button>
+                  </Link>
                 );
               }
             },
           ]}
           data={this.props.reviews}
           loading={this.props.loading}
+          onChange={this.handleStandardTableChange.bind(this)}
           selectedRows={this.state.selectedRows}/>
       </div>
     );

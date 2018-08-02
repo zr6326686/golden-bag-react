@@ -9,7 +9,7 @@ import {connect} from 'dva';
   departmentList: departments.list,
 }))
 @Form.create()
-export default class DepartmentForm extends React.Component {
+export default class DepartmentForm extends React.PureComponent {
   handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {

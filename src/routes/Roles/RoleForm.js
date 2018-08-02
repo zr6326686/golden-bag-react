@@ -9,7 +9,7 @@ import {connect} from 'dva';
   loading: loading.models.roles,
 }))
 @Form.create()
-export default class RoleForm extends React.Component {
+export default class RoleForm extends React.PureComponent {
 
   static propTypes = {
     currentRole: PropTypes.object,

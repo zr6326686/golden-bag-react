@@ -27,6 +27,7 @@ export default class Update extends React.PureComponent {
       id: this.props.match.params.id,
     }).then(() => {
       hide();
+      this.props.history.push('/users');
     });
   }
 
@@ -36,7 +37,8 @@ export default class Update extends React.PureComponent {
         <PageHeader title="更新用户" isBack onClick={() => {
           this.props.history.push('/users');
         }}/>
-        <UserForm title="更新" onSubmit={this.onSubmit.bind(this)} currentUser={this.props.currentUser}/>
+        <UserForm userId={this.props.match.params.id} title="更新" onSubmit={this.onSubmit.bind(this)}
+                  currentUser={this.props.currentUser}/>
       </div>
     );
   }

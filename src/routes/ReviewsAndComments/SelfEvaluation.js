@@ -68,6 +68,7 @@ export default class SelfEvaluation extends React.PureComponent {
           selfEvaluationData: self.selfEvaluationData,
         }).then(() => {
           hide();
+          self.props.history.push('/');
         });
       }
     });

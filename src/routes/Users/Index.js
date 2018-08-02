@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Divider, Icon} from 'antd';
+import {Icon} from 'antd';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import StandardTable from '../../components/StandardTable/index';
 import {Link} from 'react-router-dom';
@@ -17,7 +17,18 @@ export default class Index extends React.PureComponent {
       selectedRows: [],
     };
   }
-
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'users/fetch',
+    });
+  }
+  handleStandardTableChange(pagination) {
+    this.props.dispatch({
+      type: 'users/fetch',
+      page: pagination.current,
+      size: pagination.pageSize,
+    });
+  }
   render() {
     return (
       <div>
@@ -66,22 +77,18 @@ export default class Index extends React.PureComponent {
               render: (item) => (
                 <React.Fragment>
                   <Link to={`/users/${item.id}`}><Icon type="edit"/> 编辑</Link>
-                  <Divider type="vertical"/>
-                  <a href=""><Icon type="delete"/> 删除</a>
+                  {/*<Divider type="vertical"/>*/}
+                  {/*<a href=""><Icon type="delete"/> 删除</a>*/}
                 </React.Fragment>
               ),
             }
           ]}
           data={this.props.list}
           loading={this.props.loading}
+          onChange={this.handleStandardTableChange.bind(this)}
           selectedRows={this.state.selectedRows}/>
       </div>
     );
   }
 
-  componentDidMount() {
-    this.props.dispatch({
-      type: 'users/fetch',
-    });
-  }
 }
