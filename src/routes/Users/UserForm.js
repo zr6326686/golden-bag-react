@@ -108,6 +108,18 @@ export default class UserForm extends React.PureComponent {
             <Input placeholder="请输入手机号"/>
           )}
         </Form.Item>
+        {!currentUser.id && <Form.Item
+          {...formItemLayout}
+          label="密码"
+        >
+          {getFieldDecorator('password', {
+            rules: [{
+              required: true, message: '请设置密码',
+            }],
+          })(
+            <Input type="password" placeholder="请设置密码"/>
+          )}
+        </Form.Item>}
         <Form.Item
           {...formItemLayout}
           label="性别"

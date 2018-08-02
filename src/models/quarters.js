@@ -1,11 +1,11 @@
-import {queryQuarters, updateQuarter, queryCurrentQuarter} from '../services/api';
+import {queryCurrentQuarter, queryQuarters, updateQuarter} from '../services/api';
 
 export default {
 
   namespace: 'quarters',
 
   state: {
-    list: {},
+    list: {content: []},
     current: {},
   },
 

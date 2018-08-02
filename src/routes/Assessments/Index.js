@@ -1,24 +1,31 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Badge, Button} from 'antd';
+import {Badge, Button, Form, Select} from 'antd';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import StandardTable from '../../components/StandardTable/index';
+import IndexStyles from './Index.css';
 
-@connect(({assessments, loading}) => ({
+@connect(({assessments, loading, quarters}) => ({
   loading: loading.models.assessments,
   list: assessments.list,
+  quarters: quarters.list.content,
 }))
+@Form.create()
 export default class Index extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       selectedRows: [],
+      filterValues: {},
     };
   }
 
   componentDidMount() {
     this.props.dispatch({
       type: 'assessments/fetch',
+    });
+    this.props.dispatch({
+      type: 'quarters/fetch',
     });
   }
 
@@ -27,13 +34,79 @@ export default class Index extends React.PureComponent {
       type: 'assessments/fetch',
       page: pagination.current,
       size: pagination.pageSize,
+      quarterId: this.state.filterValues.quarterId,
     });
   }
 
+  // 导出指定一条记录
+  static exportOne(id) {
+    window.location = `/assessments/export/${id}`;
+  }
+
+
+  // 导出当前季度
+  static exportCurrent() {
+    window.location = '/assessments/batch_export/byquarters';
+  }
+
+
+  batchExport() {
+    const assessmentIds = this.state.selectedRows.map(item => {
+      return `assessment_ids=${item.id}&`
+    });
+    window.location = `/assessments/batch_export/byassessments?${assessmentIds}`;
+  }
+
+  handleSelectRows(rows) {
+    this.setState({
+      selectedRows: rows,
+    });
+  };
+
+  handleFilter(e) {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.setState({filterValues: values});
+        this.props.dispatch({
+          type: 'assessments/fetch',
+          quarterId: values.quarterId
+        });
+      }
+    });
+  }
+
+  renderFilterForm() {
+    const {getFieldDecorator} = this.props.form;
+    return (
+      <Form className={IndexStyles.form} onSubmit={this.handleFilter.bind(this)} layout="inline">
+        <Form.Item label="季度">
+          {getFieldDecorator('quarterId')(
+            <Select className={IndexStyles.select} placeholder="请选择季度">
+              {this.props.quarters.map(item => {
+                return (<Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>);
+              })}
+            </Select>
+          )}
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">查询</Button>
+        </Form.Item>
+      </Form>
+    );
+  }
+
+
   render() {
+
     return (
       <div>
         <PageHeader title="审核记录汇总"/>
+        <div className={IndexStyles.options}>
+          {this.renderFilterForm()}
+          {this.state.selectedRows.length > 0 &&
+          <Button onClick={this.batchExport.bind(this)} className={IndexStyles.batch_export}>批量导出</Button>}
+        </div>
         <StandardTable
           rowKey="id"
           columns={[
@@ -91,9 +164,11 @@ export default class Index extends React.PureComponent {
             },
             {
               title: '操作',
-              render() {
+              render(item) {
                 return (
-                  <Button type="primary">导出</Button>
+                  <Button onClick={() => {
+                    Index.exportOne(item.id);
+                  }} type="primary">导出</Button>
                 );
               }
             },
@@ -101,6 +176,7 @@ export default class Index extends React.PureComponent {
           onChange={this.handleStandardTableChange.bind(this)}
           data={this.props.list}
           loading={this.props.loading}
+          onSelectRow={this.handleSelectRows.bind(this)}
           selectedRows={this.state.selectedRows}/>
       </div>
     );

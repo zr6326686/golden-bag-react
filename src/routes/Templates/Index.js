@@ -22,6 +22,7 @@ export default class Index extends React.PureComponent {
       type: 'templates/fetch',
     });
   }
+
   handleStandardTableChange(pagination) {
     this.props.dispatch({
       type: 'templates/fetch',
@@ -29,6 +30,7 @@ export default class Index extends React.PureComponent {
       size: pagination.pageSize,
     });
   }
+
   render() {
     return (
       <div>

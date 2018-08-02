@@ -17,11 +17,13 @@ export default class Index extends React.PureComponent {
       selectedRows: [],
     };
   }
+
   componentDidMount() {
     this.props.dispatch({
       type: 'users/fetch',
     });
   }
+
   handleStandardTableChange(pagination) {
     this.props.dispatch({
       type: 'users/fetch',
@@ -29,6 +31,7 @@ export default class Index extends React.PureComponent {
       size: pagination.pageSize,
     });
   }
+
   render() {
     return (
       <div>

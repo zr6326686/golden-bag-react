@@ -23,6 +23,7 @@ export default class Comments extends React.PureComponent {
       type: 'reviewsAndComments/fetchComments',
     });
   }
+
   handleStandardTableChange(pagination) {
     this.props.dispatch({
       type: 'reviewsAndComments/fetchComments',
@@ -30,6 +31,7 @@ export default class Comments extends React.PureComponent {
       size: pagination.pageSize,
     });
   }
+
   render() {
     return (
       <div>

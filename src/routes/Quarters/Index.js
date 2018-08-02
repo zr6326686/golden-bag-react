@@ -17,6 +17,7 @@ export default class Index extends React.PureComponent {
       selectedRows: [],
     };
   }
+
   handleStandardTableChange(pagination) {
     this.props.dispatch({
       type: 'quarters/fetch',
@@ -24,6 +25,7 @@ export default class Index extends React.PureComponent {
       size: pagination.pageSize,
     });
   }
+
   render() {
     return (
       <div>

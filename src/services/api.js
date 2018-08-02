@@ -54,9 +54,11 @@ export async function delDepartment(id) {
 export async function queryQuarters(page = 0, size = 10) {
   return request(`/quarters?page=${page}&size=${size}`);
 }
+
 export async function queryCurrentQuarter(id) {
   return request(`/quarters/${id}`);
 }
+
 export async function updateQuarter(id, quarter) {
   return request(`/quarters/${id}`, {
     method: 'PUT',
@@ -164,8 +166,8 @@ export async function fetchMenus() {
   return request('/permissions/menus');
 }
 
-export async function queryAssessments(quarterId) {
-  return request(quarterId ? `/assessments?quarter_id=${quarterId}` : '/assessments');
+export async function queryAssessments(quarterId, page, size) {
+  return request(quarterId ? `/assessments?quarter_id=${quarterId}&page=${page}&size=${size}` : `/assessments?page=${page}&size=${size}`);
 }
 
 export async function queryTemplateTypes() {
