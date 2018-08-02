@@ -7,7 +7,7 @@ import {connect} from 'dva';
 import GlobalFooter from '../components/GlobalFooter/GlobalFooter';
 
 const menusMapping = {
-  'user': [
+  'basic.user': [
     {
       path: '/users',
       exact: true,
@@ -27,7 +27,7 @@ const menusMapping = {
       component: require('./Users/Update').default,
     }
   ],
-  'role': [
+  'basic.role': [
     {
       path: '/roles',
       exact: true,
@@ -47,7 +47,7 @@ const menusMapping = {
       component: require('./Roles/Update').default,
     },
   ],
-  'quarter': [
+  'basic.quarter': [
     {
       path: '/quarters',
       exact: true,
@@ -55,7 +55,7 @@ const menusMapping = {
       component: require('./Quarters/Index').default,
     },
   ],
-  'department': [
+  'basic.department': [
     {
       path: '/departments',
       exact: true,
@@ -63,7 +63,7 @@ const menusMapping = {
       component: require('./Departments/Index').default,
     }
   ],
-  'template_module': [
+  'template_module.template_module': [
     {
       path: '/templates/:id/update',
       exact: true,
@@ -77,7 +77,7 @@ const menusMapping = {
       component: require('./Templates/Index').default,
     }
   ],
-  'directManagerScore': [
+  'assessment.directManagerScore': [
     {
       path: '/reviews/:id',
       exact: true,
@@ -91,7 +91,7 @@ const menusMapping = {
       component: require('./ReviewsAndComments/Reviews').default,
     }
   ],
-  'indirectManagerAuditComments': [
+  'assessment.indirectManagerAuditComments': [
     {
       path: '/comments/:id',
       exact: true,
@@ -105,7 +105,7 @@ const menusMapping = {
       component: require('./ReviewsAndComments/Comments').default,
     }
   ],
-  'selfEvaluation': [
+  'assessment.selfEvaluation': [
     {
       path: '/self_evaluation',
       exact: true,
@@ -127,8 +127,24 @@ export default class Index extends React.PureComponent {
     this.flatMenus = [];
     this.props.dispatch({type: 'app/fetchMenus'}).then(() => {
       this.flatMenus = this.props.menus.reduce((previousValue, currentValue) => {
-        const prev = previousValue.children ? previousValue.children : previousValue;
-        return [...prev, ...currentValue.children];
+
+        let prev = previousValue.children && previousValue.children.length > 0 ? previousValue.children : previousValue;
+
+        if (!(previousValue instanceof Array)) {
+          prev = previousValue.children.map(item => {
+            return {
+              ...item,
+              fullName: `${previousValue.name}.${item.name}`,
+            };
+          });
+        }
+        const cMenu = currentValue.children.map(item => {
+          return {
+            ...item,
+            fullName: `${currentValue.name}.${item.name}`,
+          };
+        });
+        return [...prev, ...cMenu];
       });
       this.forceUpdate();
     });
@@ -157,7 +173,7 @@ export default class Index extends React.PureComponent {
                           return (
                             <Menu.ItemGroup key={index} title={cMenu.displayName}>
                               {
-                                menusMapping[cMenu.name].map((route) => {
+                                menusMapping[`${pMenu.name}.${cMenu.name}`].map((route) => {
                                   if (!route.path.includes(':')) {
                                     return (
                                       <Menu.Item key={route.path} onClick={() => {
@@ -210,7 +226,7 @@ export default class Index extends React.PureComponent {
               }}/>
               {
                 this.flatMenus.map(items => {
-                  return menusMapping[items.name].map((route, index) => {
+                  return menusMapping[items.fullName].map((route, index) => {
                     return <Route key={index} path={route.path} exact component={route.component}/>
                   });
                 })
