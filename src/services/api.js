@@ -140,3 +140,7 @@ export async function updateRole(id, role) {
     body: JSON.stringify(role),
   });
 }
+
+export async function fetchMenus() {
+  return request('/permissions/menus');
+}
